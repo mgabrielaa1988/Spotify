@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1505827398 source:c:\users\alumno\desktop\spotify\main.c
+1505833418 source:c:\users\alumno\desktop\spotify\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>

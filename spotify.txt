@@ -26,8 +26,6 @@ void listarCanciones (eCancion lista[], int tam);
 void listarInterpretes (eInterprete lista[], int tam);
 
 void listarCancionesConInterpretes(eCancion[], int, eInterprete[],int);
-void listarCancionesInterpretesArg (eCancion[],int, eInterprete[],int);
-void listarCancionesPorInterprete (eCancion[], int, eInterprete[],int);
 
 int main()
 {
@@ -44,11 +42,6 @@ int main()
     system("cls");
 
     listarCancionesConInterpretes (listaCanciones, TC, listaInterpretes, TI);
-    listarCancionesInterpretesArg (listaCanciones,TC, listaInterpretes,TI);
-    listarCancionesPorInterprete (listaCanciones,TC, listaInterpretes, TI);
-
-    system("pause");
-    system("cls");
 
     return 0;
 }
@@ -124,46 +117,5 @@ void listarCancionesConInterpretes(eCancion listaCanciones[],int tamC,eInterpret
             }
         }
         printf("%4d\t%2s\t%2s\t%15.2f\n",listaCanciones[i].idCancion,listaCanciones[i].titulo,auxInterprete.nombre,listaCanciones[i].duracion);
-    }
-}
-
-void listarCancionesInterpretesArg(eCancion listaCanciones[],int tamC,eInterprete listaInterpretes[],int tamI)
-{
-    int i;
-    int j;
-    //eCancion auxCancion;
-    printf("CANCIONES C/INTERPRETE ARGENTINO\n");
-    printf("Id \tTitulo\tInterprete\tDuracion\n");
-
-    for (i=0;i<tamC;i++)
-    {
-        for (j=0;j<tamI;j++)
-        {
-            if (listaInterpretes[j].nacionalidad == listaCanciones[i].interprete)
-            {
-                //auxCancion = listaCanciones[j];
-           printf("%d %s %d %.2f\n",listaCanciones[i].idCancion,listaCanciones[i].titulo,listaCanciones[i].interprete,listaCanciones[i].duracion);
-            }
-        }
-
-    }
-}
-
-void listarCancionesPorInterprete(eCancion listaCanciones[],int tamC, eInterprete listaInterpretes[],int tamI)
-{
-    int i;
-    int j;
-
-    for (i=0;i<tamI;i++)
-    {
-        printf("%s",listaInterpretes[i].nombre);
-
-        for (j=0;j<tamC;j++)
-        {
-            if (listaCanciones[j].interprete == listaInterpretes[i].idInterprete)
-            {
-                printf("%s\n", listaCanciones[j].titulo);
-            }
-        }
     }
 }
