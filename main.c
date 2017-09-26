@@ -10,14 +10,14 @@ typedef struct
     char titulo [50];
     int interprete;
     float duracion;
-}eCancion;
+} eCancion;
 
 typedef struct
 {
     int idInterprete;
     char nombre [50];
     char nacionalidad [50];
-}eInterprete;
+} eInterprete;
 
 void inicializarCanciones (eCancion lista[], int tam);
 void inicializarInterpretes (eInterprete lista[], int tam);
@@ -28,6 +28,8 @@ void listarInterpretes (eInterprete lista[], int tam);
 void listarCancionesConInterpretes(eCancion[], int, eInterprete[],int);
 void listarCancionesInterpretesArg (eCancion[],int, eInterprete[],int);
 void listarCancionesPorInterprete (eCancion[], int, eInterprete[],int);
+
+void duracionPorInterprete (eCancion[],int, eInterprete[],int);
 
 int main()
 {
@@ -50,17 +52,19 @@ int main()
     system("pause");
     system("cls");
 
+    duracionPorInterprete (listaCanciones,TC, listaInterpretes,TI);
+
     return 0;
 }
 
 void inicializarInterpretes(eInterprete lista[], int tam)
 {
-    int id[]={1,2,3,4,5};
-    char nombre[][50]={"Sh","Ad","Ka","Br","Sa"};
-    char nacionalidad[][30]={"Colombia","RUGB","Argentina","EEUU","EEUU"};
+    int id[]= {1,2,3,4,5};
+    char nombre[][50]= {"Sh","Ad","Ka","Br","Sa"};
+    char nacionalidad[][30]= {"Colombia","RUGB","Argentina","EEUU","EEUU"};
     int i;
 
-    for (i=0;i<tam;i++)
+    for (i=0; i<tam; i++)
     {
         lista[i].idInterprete=id[i];
         strcpy(lista[i].nombre, nombre[i]);
@@ -70,13 +74,13 @@ void inicializarInterpretes(eInterprete lista[], int tam)
 
 void inicializarCanciones(eCancion lista[], int tam)
 {
-    int idCancion[]={1011,1012,1013,1014,1015,1016,1017,1018,1019,1020};
-    char titulo[][30]={"Aaaa","Bbbb","Cccc","Dddd","Eeee","Ffff","Gggg","Hhhh","Iiii","Jjjj"};
-    char interprete[]={2,1,4,3,1,5,3,5,5,4};
-    float duracion[]={1.05,2,1.5,3,4,4.5,3.5,3,2.5,2};
+    int idCancion[]= {1011,1012,1013,1014,1015,1016,1017,1018,1019,1020};
+    char titulo[][30]= {"Aaaa","Bbbb","Cccc","Dddd","Eeee","Ffff","Gggg","Hhhh","Iiii","Jjjj"};
+    char interprete[]= {2,1,4,3,1,5,3,5,5,4};
+    float duracion[]= {1.05,2,1.5,3,4,4.5,3.5,3,2.5,2};
     int i;
 
-    for (i=0;i<tam;i++)
+    for (i=0; i<tam; i++)
     {
         lista[i].idCancion=idCancion[i];
         lista[i].interprete=interprete[i];
@@ -89,7 +93,7 @@ void listarCanciones(eCancion lista[],int tam)
 {
     int i;
     printf("CANCIONES\n");
-    for (i=0;i<tam;i++)
+    for (i=0; i<tam; i++)
     {
         printf("%d-%s-%d--%.2f\n",lista[i].idCancion,lista[i].titulo,lista[i].interprete,lista[i].duracion);
     }
@@ -99,7 +103,7 @@ void listarInterpretes(eInterprete lista[],int tam)
 {
     int i;
     printf("INTERPRETES\n");
-    for (i=0;i<tam;i++)
+    for (i=0; i<tam; i++)
     {
         printf("%d-%s-%s\n",lista[i].idInterprete,lista[i].nombre,lista[i].nacionalidad);
     }
@@ -110,12 +114,11 @@ void listarCancionesConInterpretes(eCancion listaCanciones[],int tamC,eInterpret
     int i;
     int j;
     eInterprete auxInterprete;
-    printf("CANCIONES C/INTERPRETE\n");
+    printf("  CANCIONES C/INTERPRETE\n");
     printf("Id \tTitulo\tInterprete\tDuracion\n");
-
-    for (i=0;i<tamC;i++)
+    for (i=0; i<tamC; i++)
     {
-        for (j=0;j<tamI;j++)
+        for (j=0; j<tamI; j++)
         {
             if (listaCanciones[i].interprete==listaInterpretes[j].idInterprete)
             {
@@ -131,21 +134,25 @@ void listarCancionesInterpretesArg(eCancion listaCanciones[],int tamC,eInterpret
 {
     int i;
     int j;
+    int idArgentino;
     //eCancion auxCancion;
     printf("CANCIONES C/INTERPRETE ARGENTINO\n");
     printf("Id \tTitulo\tInterprete\tDuracion\n");
 
-    for (i=0;i<tamC;i++)
+    for (i=0; i<tamI; i++)
     {
-        for (j=0;j<tamI;j++)
+        if (strcmp(listaInterpretes[i].nacionalidad,"Argentina")==0)
         {
-            if (listaInterpretes[j].nacionalidad == listaCanciones[i].interprete)
+            idArgentino = listaInterpretes[i].idInterprete;
+            for (j=0; j<tamC; j++)
             {
-                //auxCancion = listaCanciones[j];
-           printf("%d %s %d %.2f\n",listaCanciones[i].idCancion,listaCanciones[i].titulo,listaCanciones[i].interprete,listaCanciones[i].duracion);
+                if (idArgentino == listaCanciones[j].interprete)
+                {
+                    //auxCancion = listaCanciones[j];
+                    printf("%4d\t%2s\t%2s\t%15.2f\n",listaCanciones[j].idCancion,listaCanciones[j].titulo,listaInterpretes[i].nombre,listaCanciones[j].duracion);
+                }
             }
         }
-
     }
 }
 
@@ -153,17 +160,48 @@ void listarCancionesPorInterprete(eCancion listaCanciones[],int tamC, eInterpret
 {
     int i;
     int j;
+    int auxInterprete;
+    printf("CANCIONES POR INTERPRETE\n");
+    printf("Id \tTitulo\tInterprete\tDuracion\n");
 
-    for (i=0;i<tamI;i++)
+    for (i=0; i<tamI; i++)
     {
-        printf("%s",listaInterpretes[i].nombre);
-
-        for (j=0;j<tamC;j++)
+        auxInterprete = listaInterpretes[i].idInterprete;
+        for (j=0; j<tamC; j++)
         {
-            if (listaCanciones[j].interprete == listaInterpretes[i].idInterprete)
+            if (auxInterprete==listaCanciones[j].interprete)
             {
-                printf("%s\n", listaCanciones[j].titulo);
+                printf("%4d\t%2s\t%2s\t%15.2f\n",listaCanciones[j].idCancion,listaCanciones[j].titulo,listaInterpretes[i].nombre,listaCanciones[j].duracion);
             }
         }
     }
+}
+
+void duracionPorInterprete (eCancion listaCanciones[],int tamC,eInterprete listaInterpretes[],int tamI)
+{
+    char interprete [50];
+    printf("\nIngrese el nombre del interprete: \n");
+    fflush(stdin);
+    gets(interprete);
+
+    int i;
+    int j;
+    float acumulador =0;
+    int idCantante;
+
+    for (i=0; i<tamI; i++)
+    {
+        if (strcmp(listaInterpretes[i].nombre,interprete)==0)
+        {
+            idCantante = listaInterpretes[i].idInterprete;
+
+            for (j=0; j<tamC; j++)
+            {
+                if (idCantante == listaCanciones[j].interprete)
+
+                    acumulador = acumulador + listaCanciones[j].duracion;
+            }
+        }
+    }
+    printf("La duracion total es: %.2f",acumulador);
 }
