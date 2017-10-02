@@ -30,6 +30,7 @@ void listarCancionesInterpretesArg (eCancion[],int, eInterprete[],int);
 void listarCancionesPorInterprete (eCancion[], int, eInterprete[],int);
 
 void duracionPorInterprete (eCancion[],int, eInterprete[],int);
+void artistaMasPopular (eCancion[],int, eInterprete[],int);
 
 int main()
 {
@@ -53,6 +54,7 @@ int main()
     system("cls");
 
     duracionPorInterprete (listaCanciones,TC, listaInterpretes,TI);
+    artistaMasPopular (listaCanciones,TC, listaInterpretes,TI);
 
     return 0;
 }
@@ -198,10 +200,41 @@ void duracionPorInterprete (eCancion listaCanciones[],int tamC,eInterprete lista
             for (j=0; j<tamC; j++)
             {
                 if (idCantante == listaCanciones[j].interprete)
-
+                {
                     acumulador = acumulador + listaCanciones[j].duracion;
+                }
+
             }
         }
     }
     printf("La duracion total es: %.2f",acumulador);
+}
+
+void artistaMasPopular (eCancion listaCanciones[],int tamC, eInterprete listaInterpretes[],int tamI)
+{
+    int i;
+    int j;
+    int contadorCanciones=0;
+    int maxCanciones=0;
+    char auxInterprete [50];
+
+    for (i=0; i<tamI; i++)
+    {
+
+        for (j=0; j<tamC; j++)
+        {
+            if (listaInterpretes[i].idInterprete == listaCanciones[j].interprete)
+            {
+                contadorCanciones++;
+
+            }
+        }
+                        strcpy(auxInterprete,listaInterpretes[i].nombre);
+        if (contadorCanciones>maxCanciones)
+        {
+            maxCanciones = contadorCanciones;
+        }
+
+    }
+          printf("\nEl cantante mas popular es: %s con %d canciones.",auxInterprete,maxCanciones);
 }
